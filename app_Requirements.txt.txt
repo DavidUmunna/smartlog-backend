@@ -1,0 +1,73 @@
+1. Functional Requirements
+User Management
+Users should be able to sign up and log in (Authentication & Authorization).
+
+Users should be able to update their profile information.
+
+Admins should have access to view all user logs.
+Logging out is disabled until the end of the workday.
+
+breaks and movement allowances are made 
+
+Geolocation-Based Logging
+The app should detect when a user arrives at a specific location.
+
+The app should detect when a user leaves the location.
+
+The system should log the user's timestamp, location, and device ID.
+
+Logging should be automatic based on geofencing.
+
+Users should be able to manually check in in case of GPS issues.
+
+Data Storage and Management
+A database should store:
+
+User details (ID, Name, Email, Role).
+
+Location logs (User ID, Timestamp, Coordinates, Status: "IN"/"OUT").
+
+The database should support retrieving logs for a given user and time range.
+
+Notifications and Alerts
+Notify users upon successful check-in/check-out.
+
+Send alerts for missed check-ins or prolonged stays.
+
+Admin Dashboard
+View live logs of users.
+
+Filter logs by date, user, and location time signed in ,time signed out documented movement period breaks.
+
+Export reports of attendance data.
+
+2. Non-Functional Requirements
+Performance & Scalability
+The system should handle multiple users simultaneously.
+
+Optimize battery usage for mobile geolocation tracking.
+
+Database queries should be efficient for retrieving logs.
+
+Security
+Secure authentication using JWT & HTTP-only cookies.
+
+Store sensitive data using encryption.
+
+Prevent unauthorized API access with role-based access control (RBAC).
+
+API & Integration
+The backend should provide RESTful APIs.
+
+Support mobile & web clients.
+
+Use Google Maps API or OpenStreetMap for geolocation.
+
+Deployment & Hosting
+Deploy the backend using Docker.
+
+Use AWS/GCP/Firebase for scalable hosting.
+
+Implement CI/CD pipelines for smooth updates.
+
+Next Steps
