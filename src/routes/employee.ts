@@ -18,7 +18,7 @@ router.get("/",async(req, res)=>{
 
 
 
-router.post("/create-user", async (req:Request, res:Response) => {
+router.post("/create-user", async (req:Request, res:Response):Promise<any> => {
     try {
         const { email, password, firstname, lastname, phoneNumber, role } = req.body;
 

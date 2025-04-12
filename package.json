@@ -11,18 +11,12 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-<<<<<<< HEAD
     "bcrypt": "^5.1.1",
-=======
->>>>>>> c0aa4bb (feat: initialize backend with Express, MongoDB, and essential middleware)
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
-<<<<<<< HEAD
-=======
     "jsonwebtoken": "^9.0.2",
->>>>>>> c0aa4bb (feat: initialize backend with Express, MongoDB, and essential middleware)
     "mongoose": "^8.13.1",
     "morgan": "^1.10.0",
     "opossum": "^8.4.0"
