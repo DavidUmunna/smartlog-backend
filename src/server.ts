@@ -17,7 +17,9 @@ app.use(helmet());
 app.use(morgan("dev"));
 connectDB();
 // Routes
+
 app.use("/api", apiRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
