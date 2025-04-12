@@ -1,5 +1,5 @@
 import express,{Request,Response} from "express"
-import user from "../models/user"
+import user, { UserType } from "../models/user"
 import { Interface } from "readline"
 const router=express.Router()
 
@@ -16,14 +16,14 @@ declare global{
 router.use(async (req:Request,res:Response,next):Promise<any>=>{
     try{
         const {email}=req.params
-        const User=await user.find({email:email})
+        const User: UserType | null = await user.findOne({ email: email });
 
         if (!User){
             return res.status(401).json({
                 message:"usr not found"
             })
         }
-        if (User[0]?.role === "admin") {
+        if (User?.role === "admin") {
             next();
         } else {
             return res.status(403).json({

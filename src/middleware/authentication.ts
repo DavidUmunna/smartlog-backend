@@ -23,10 +23,11 @@ router.use(async (req:Request, res:Response, next):Promise<any> => {
             })
         }
         const token=authheaders.split(" ")[1]
-        console.log("tokem:",token)
+        console.log("token:",token)
         
         const secretKey="pedro123"
-        jwt.verify(token,secretKey,(err,decoded)=>{
+        
+        jwt.verify(token,secretKey,(err: any,decoded: any)=>{
             if (err){
                 return res.status(401).json({
                     authentication:false,

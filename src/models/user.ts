@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
-
+export interface UserType{
+  role:String
+}
 const userSchema=new mongoose.Schema({
     
     email:String,
@@ -8,7 +10,7 @@ const userSchema=new mongoose.Schema({
     firstName: String,
     lastName: String,
     phoneNumber: String,
-    role:String,enum:['admin','staff'], default:"staff",
+    role:{String,enum:['admin','staff'], default:"staff"},
     updatedAt: {
         type: Date,
         default: Date.now

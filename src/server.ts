@@ -1,10 +1,11 @@
-import apiRoutes from "./routes/index.js";
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import helmet from "helmet";
-import morgan from "morgan"
-import connectDB from "./config/db.js";
+const apiRoutes = require("./app.ts");
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const connectDB = require("../config/db.js");
+
 dotenv.config();
 
 const app = express();
@@ -14,7 +15,7 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
-connectDB()
+connectDB();
 // Routes
 app.use("/api", apiRoutes);
 

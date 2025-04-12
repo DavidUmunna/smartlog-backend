@@ -1,8 +1,11 @@
 import express from 'express'
-import {getusers} from "../controllers/admin"
+import {getusers,signin,createusers} from "../controllers/admin"
 const admin_val=require("../middleware/admin_validation")
 
-const app=express()
+const router=express.Router()
 
-app.get('/',getusers)
-app.post('/:email',admin_val,)
+router.get('/',getusers)
+router.post('/:email',admin_val,signin)
+router.post("/createuser",createusers)
+
+export default router

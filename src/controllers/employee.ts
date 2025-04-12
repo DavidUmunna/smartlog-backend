@@ -1,11 +1,16 @@
-import express from "express"
+import express,{Request,Response} from "express"
 import user from "../models/user"
+import bcrypt from "bcrypt"
+import { promises } from "dns"
+//const router=express.Router()
 
-const router=express.Router()
 
-export const   getusers=async(req,res)=>{
+
+
+export const   getusers=async(req:express.Request,res:express.Response):Promise<any>=>{
     try{
-        const User=await user.findById(req?.query.id)
+        const email=req.params.id
+        const User=await user.findById({email:email})
         User ? res.status(200).json(User) : res.status(404).json({ message: "User not found" });
 
 
@@ -15,17 +20,23 @@ export const   getusers=async(req,res)=>{
     }
 }
 
-router.post("/:id",async(req,res)=>{
+export const updateuser=async(req:Request,res:Response):Promise<any>=>{
     try{
-        const {email,password,firstname,lastname,phoneNumber,role}=req.body()
-        const User=new user({email,password,firstname,lastname,phoneNumber,role})
-        console.log(User)
-        await User.save()
-        res.status(201).json(User)
-    }catch(err){
-        res.status(400).json({ message: "Error User not created" });
-        console.error(err)
-    }
-})
+        const email=req.params.id
+        const {password}=req.body
+        const User=user.findOneAndUpdate({email:email},{password:password})
 
-export default router
+
+        if (!User){
+            res.status(401).json({message:"usr does not exist"})
+        }
+        return res.status(201).json({message:"user password updated successfully"})
+        
+
+    }catch(err){
+        console.error("server error",err)
+        res.status(501).json({message:"server error"})
+    }
+
+}
+

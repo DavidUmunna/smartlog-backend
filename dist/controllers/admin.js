@@ -1,22 +1,21 @@
-import express,{Request,Response} from "express"
-import user from "../models/user"
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+"use strict";
+const user = require("../models/user");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-export const   getusers=async(req:Request,res:Response)=>{
-    try{
-        const User=await user.findById(req?.query.id)
-        User ? res.status(200).json(User) : res.status(404).json({ message: "User not found" });
-
-
-    }catch(err){
+const getusers = async (req, res) => {
+    try {
+        const User = await user.findById(req?.query?.id);
+        User
+            ? res.status(200).json(User)
+            : res.status(404).json({ message: "User not found" });
+    } catch (err) {
         console.error(err);
         res.status(500).json({ message: "An error occurred" });
     }
-}
+};
 
-
-export const createusers=async (req:express.Request, res:express.Response):Promise<any> => {
+const createusers = async (req, res) => {
     try {
         const { email, password, firstname, lastname, phoneNumber, role } = req.body;
 
@@ -47,17 +46,14 @@ export const createusers=async (req:express.Request, res:express.Response):Promi
 
         console.log(newUser);
         await newUser.save();
-
         res.status(201).json({ message: "User created successfully", userId: newUser._id });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Error: User not created" });
     }
-}
+};
 
-
-
-export const signin = async (req: Request, res: Response):Promise<any> => {
+const signin = async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -106,5 +102,9 @@ export const signin = async (req: Request, res: Response):Promise<any> => {
     }
 };
 
-
-
+// Export the functions
+module.exports = {
+    getusers,
+    createusers,
+    signin,
+};
