@@ -7,31 +7,29 @@ const attendancelog_schema=new mongoose.Schema({
         default:Date.now,
         required:true
     },
-    Employee_name:{
+    EmployeeName:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
 
     },
-    Time_in:{
-        type:Date,
-        default:Date.now
+    TimeIn:{
+        type:String,
+        
     },
-    Time_out:{
-        type:Date,
-        default:Date.now
+    TimeOut:{
+        type:String,
+        
     },
-    Break_time:{
-
-    },
+   
     status:{
         type:String,
         enum:['present','absent'],default:'absent'
     },
-    leave_type:{
+    leavetype:{
         type:String,
-        enum:[]
+        enum:["sick_leave","paternity_leave","maternity_leave","unpaid_leave","LOA"] 
     },
-    Reason_for_absence:{
+    Reasonforabsence:{
         type:String,
         required:false
     },

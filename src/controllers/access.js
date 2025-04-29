@@ -1,20 +1,23 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.user_access = void 0;
-const user_access = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.status(200).json({
+
+
+
+const  user_access=(req, res)=> {
+  
+    try {
+      res.status(200).json({
         authentication: true,
         message: "you have access to this protected route",
         user: req.user
-    });
-});
-exports.user_access = user_access;
+      });
+      resolve();
+    } catch (error) {
+      console.error("error during processing :",error)
+      res.status(500).json({message:"an error occured",authentication:false})
+    }
+  };
+
+
+module.exports = {
+  user_access
+};
