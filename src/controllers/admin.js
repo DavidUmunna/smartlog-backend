@@ -1,5 +1,5 @@
 "use strict";
-const user = require("../models/user");
+const user=require('../models/user')
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -87,6 +87,7 @@ const signin = async (req, res) => {
         // Respond with the token and user details
         res.status(200).json({
             message: "Sign-in successful",
+            success:true,
             token,
             user: {
                 id: existingUser._id,
@@ -98,7 +99,7 @@ const signin = async (req, res) => {
         });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: "An error occurred during sign-in" });
+        res.status(500).json({ message: "An error occurred during sign-in",success:false });
     }
 };
 

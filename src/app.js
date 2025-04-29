@@ -10,6 +10,6 @@ const appRoutes = express();
 appRoutes.use("/employee", employeeroute);
 appRoutes.use("/admin", adminroutes);
 appRoutes.use("/access", accessroutes);
-appRoutes.use("/default", defaultroute);
+
 
 module.exports = appRoutes;
