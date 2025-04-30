@@ -31,7 +31,8 @@ const attendancelog_schema=new mongoose.Schema({
     },
     Reasonforabsence:{
         type:String,
-        required:false
+        required:false,
+        default:"no reason"
     },
     comments:{
         type:String
