@@ -5,10 +5,10 @@ const jwt = require("jsonwebtoken");
 
 const getusers = async (req, res) => {
     try {
-        const User = await user.findById(req?.query?.id);
-        User
-            ? res.status(200).json(User)
-            : res.status(404).json({ message: "User not found" });
+        const Users = await user.find();
+        Users
+            ? res.status(200).json(Users)
+            : res.status(404).json({ message: "Users not found" });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "An error occurred" });
@@ -17,10 +17,10 @@ const getusers = async (req, res) => {
 
 const createusers = async (req, res) => {
     try {
-        const { email, password, firstname, lastname, phoneNumber, role } = req.body;
+        const { CompanyName, email, password, firstname, lastname, role,confirmpassword } = req.body;
 
         // Validate input
-        if (!email || !password || !firstname || !lastname || !phoneNumber || !role) {
+        if (!email || !password || !firstname || !lastname  || !role ||!CompanyName) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
@@ -31,41 +31,46 @@ const createusers = async (req, res) => {
         }
 
         // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        if (password===confirmpassword){
 
-        // Create a new user
-        const newUser = new user({
-            email,
-            password: hashedPassword,
-            firstname,
-            lastname,
-            phoneNumber,
-            role,
-            createdAt: new Date(),
-        });
-
+            const hashedPassword = await bcrypt.hash(password, 10);
+            
+            // Create a new user
+            const newUser = new user({
+                CompanyName,
+                email,
+                password: hashedPassword,
+                firstname,
+                lastname,
+                role,
+                
+            });
         console.log(newUser);
         await newUser.save();
-        res.status(201).json({ message: "User created successfully", userId: newUser._id });
+        res.status(201).json({ success:true, message: "User created successfully", userId: newUser._id });
+        }else{
+            res.status(401).json({success:false, message:"passwords did not match"})
+        }
+
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: "Error: User not created" });
+        res.status(500).json({ success:false,message: "Error: User not created" });
     }
 };
 
 const signin = async (req, res) => {
     try {
         const { email, password } = req.body;
-
         // Validate input
         if (!email || !password) {
             return res.status(400).json({ message: "Email and password are required" });
         }
-
+        
         // Check if the user exists
-        const existingUser = await user.findOne({ email });
+        const existingUser = await user.findOne({ email:email });
         if (!existingUser) {
-            return res.status(404).json({ message: "User not found" });
+            console.log(email)
+            return res.status(404).json({ email:email,message: "User not found" });
         }
 
         // Compare the provided password with the stored hashed password
